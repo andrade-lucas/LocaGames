@@ -3,6 +3,8 @@ using Loca.Domain.Repositories;
 using Loca.Infra.Context;
 using System;
 using System.Collections.Generic;
+using Dapper;
+using System.Threading.Tasks;
 
 namespace Loca.Infra.Repositories
 {
@@ -15,34 +17,78 @@ namespace Loca.Infra.Repositories
             _db = db;
         }
 
-        public void Create(User user)
+        public async Task Create(User user)
+        {
+            string sql = "insert into [User]([ID], [FirstName], [LastName], [Email], [Password], [Birthdate], [Image], [CreatedAt]) " +
+                        "Values(@id, @firstName, @lastName, @email, @password, @birthdate, @image, @createdAt)";
+            using (var con = _db.GetCon())
+            {
+                await con.ExecuteAsync(sql, new
+                {
+                    id = user.ID,
+                    firstName = user.FirstName,
+                    lastName = user.LastName,
+                    email = user.Email,
+                    password = user.Password,
+                    birthdate = user.BirthDate,
+                    image = user.Image,
+                    createdAt = user.CreatedAt
+                });
+            }
+        }
+
+        public async Task Delete(Guid id)
+        {
+            string sql = "delete from [User] where ID = @id";
+
+            using (var con = _db.GetCon())
+            {
+                await con.ExecuteAsync(sql, new
+                {
+                    id = id
+                });
+            }
+        }
+
+        public Task Edit(User user)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Guid id)
+        public Task<IList<User>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(User user)
+        public Task<User> GetByID(Guid id)
         {
-            throw new NotImplementedException();
+            Task<User> user;
+            string sql = "select * from [User] where ID = @id";
+
+            using (var con = _db.GetCon())
+            {
+                user = con.QueryFirstOrDefaultAsync<User>(sql, new
+                {
+                    id = id
+                });
+            }
+            return user;
         }
 
-        public IList<User> GetAll()
+        public Task<User> Login(string email, string password)
         {
-            throw new NotImplementedException();
-        }
+            Task<User> user;
+            string sql = "select * from [User] where [Email] = @email and [Password] = @password";
 
-        public User GetByID(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User Login(string email, string password)
-        {
-            throw new NotImplementedException();
+            using (var con = _db.GetCon())
+            {
+                user = con.QuerySingleOrDefaultAsync<User>(sql, new
+                {
+                    email = email,
+                    password = password
+                });
+            }
+            return user;
         }
     }
 }
