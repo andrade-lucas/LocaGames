@@ -12,4 +12,8 @@
     <ProjectReference Include="..\Loca.Shared\Loca.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
 </Project>

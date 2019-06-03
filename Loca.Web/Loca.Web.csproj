@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Loca.Infra\Loca.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\User\" />
-  </ItemGroup>
-
 </Project>

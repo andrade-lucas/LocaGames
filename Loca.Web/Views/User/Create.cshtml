@@ -1,44 +1,44 @@
-﻿
+﻿@model Loca.Domain.Entities.User
 @{
     ViewData["Title"] = "Novo Usuário";
 }
 
 <div class="card cold-md-12">
-    <form action="/User/Create" method="post">
+    <form asp-action="Create">
         <div class="form-group">
             <div class="col-md-12">
                 <label for="FirstName">Nome</label>
-                <input type="text" id="FirstName" name="FirstName" class="form-control" />
+                <input asp-for="FirstName" type="text" id="FirstName" name="FirstName" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-12">
                 <label for="LastName">Sobrenome</label>
-                <input type="text" id="LastName" name="LastName" class="form-control" />
+                <input asp-for="LastName" type="text" id="LastName" name="LastName" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-12">
                 <label for="Email">E-mail</label>
-                <input type="email" id="Email" name="Email" class="form-control" />
+                <input asp-for="Email" type="email" id="Email" name="Email" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-12">
                 <label for="Password">Senha</label>
-                <input type="password" id="Password" name="Password" class="form-control" />
+                <input asp-for="Password" type="password" id="Password" name="Password" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-12">
                 <label for="Birthdate">Aniversário</label>
-                <input type="date" id="Birthdate" name="Birthdate" class="form-control" />
+                <input asp-for="BirthDate" type="date" id="Birthdate" name="Birthdate" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-12">
                 <label for="Image">Imagem</label>
-                <input type="file" id="Image" name="Image" class="form-control" />
+                <input asp-for="Image" type="file" id="Image" name="Image" class="form-control" />
             </div>
         </div>
         <div class="form-group text-right">
